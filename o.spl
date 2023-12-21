@@ -1,0 +1,41 @@
+//affichage d'une chaine de texte
+s_a= "Bonjour le monde ! (oui on est en France ici, pas de Hallo Welt !!)\n";
+
+//affectation de la variable texte
+Sc_phrase_de_thomas= "Thomas a dit :
+
+\"J'aime bien la science-fiction et les dessins anim�s Disney !\".
+
+Mais voila on s'en fiche un peu...
+
+";
+
+//affiche la variable texte
+s_a = Sc_phrase_de_thomas;
+
+//supprime la variable texte (libere la memoire) - la variable est desormais inutilisable en l'etat
+s_free Sc_phrase_de_thomas;
+
+/*
+
+AFFICHAGE DE LA TABLE DE MULTIPLICATION DE 1 A 10
+
+*/
+
+s_a= "---------------------------------TABLE DE MULTIPLICATION---------------------------------\n";
+s_a= "|X\t1\t2\t3\t4\t5\t6\t7\t8\t9\t10\t|\n";
+Se_i=0;
+for{10}:
+    Se_j=0;
+    Se_i++;
+    s_a= "|";
+    s_a =Se_i;
+    for{10}:
+        Se_j++;
+        s_a= "\t";
+        s_a= Se_i*Se_j;
+    ;
+    s_a= "\t|\n";
+;
+s_a = "-----------------------------------------------------------------------------------------\n";
+

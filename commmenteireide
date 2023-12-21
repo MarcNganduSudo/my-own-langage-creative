@@ -1,0 +1,111 @@
+# Importer la bibliothèque tkinter pour créer une interface graphique
+from tkinter import *
+# Importer les fonctions asksaveasfilename et askopenfilename de la bibliothèque tkinter.filedialog pour ouvrir et enregistrer des fichiers
+from tkinter.filedialog import asksaveasfilename, askopenfilename
+# Importer la bibliothèque subprocess pour exécuter des commandes système
+import subprocess
+
+# Créer une fenêtre principale
+compiler = Tk()
+# Définir le titre de la fenêtre
+compiler.title('Mon IDE Fantastique')
+# Initialiser le chemin du fichier
+file_path = ''
+
+# Définir une fonction pour définir le chemin du fichier
+def set_file_path(path):
+    global file_path
+    file_path = path
+
+# Définir une fonction pour ouvrir un fichier
+def open_file():
+    # Ouvrir une boîte de dialogue pour sélectionner un fichier avec l'extension .spl
+    path = askopenfilename(filetypes=[('Fichiers SPL', '*.spl')])
+    # Ouvrir le fichier sélectionné en mode lecture
+    with open(path, 'r') as file:
+        # Lire le contenu du fichier
+        code = file.read()
+        # Effacer le contenu de l'éditeur
+        editor.delete('1.0', END)
+        # Insérer le contenu du fichier dans l'éditeur
+        editor.insert('1.0', code)
+        # Définir le chemin du fichier
+        set_file_path(path)
+
+# Définir une fonction pour enregistrer un fichier
+def save_as():
+    # Si le chemin du fichier est vide, ouvrir une boîte de dialogue pour enregistrer un fichier avec l'extension .spl
+    if file_path == '':
+        path = asksaveasfilename(filetypes=[('Fichiers SPL', '*.spl')])
+    # Sinon, utiliser le chemin du fichier existant
+    else:
+        path = file_path
+    # Ouvrir le fichier sélectionné en mode écriture
+    with open(path, 'w') as file:
+        # Écrire le contenu de l'éditeur dans le fichier
+        code = editor.get('1.0', END)
+        file.write(code)
+        # Définir le chemin du fichier
+        set_file_path(path)
+
+# Définir une fonction pour exécuter le code
+def run():
+    # Si le chemin du fichier est vide, afficher un message d'erreur
+    if file_path == '':
+        save_prompt = Toplevel()
+        text = Label(save_prompt, text='Veuillez enregistrer votre code')
+        text.pack()
+        return
+    # Définir la commande à exécuter pour compiler et exécuter le code
+    command = 'flex -o sudo_lex.c sudo_lex.lex; bison -d sudo_syntaxe.y; gcc sudo_lex.c sudo_syntaxe.tab.c sudo_code_generator.c `pkg-config --cflags --libs glib-2.0` -o spl; ./spl *.spl; gcc -o h *.c; ./h'
+    # Exécuter la commande dans un processus
+    process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+    # Récupérer la sortie et les erreurs du processus
+    output, error = process.communicate()
+    # Afficher la sortie et les erreurs dans la zone de sortie de code
+    code_output.insert('1.0', output)
+    code_output.insert('1.0',  error)
+
+# Créer une barre de menu
+menu_bar = Menu(compiler)
+
+# Créer un menu Fichier
+file_menu = Menu(menu_bar, tearoff=0)
+# Ajouter des options pour ouvrir, enregistrer et quitter
+file_menu.add_command(label='Ouvrir', command=open_file)
+file_menu.add_command(label='Enregistrer', command=save_as)
+file_menu.add_command(label='Enregistrer sous', command=save_as)
+file_menu.add_command(label='Quitter', command=exit)
+# Ajouter le menu Fichier à la barre de menu
+menu_bar.add_cascade(label='Fichier', menu=file_menu)
+
+# Créer un menu Exécuter
+run_bar = Menu(menu_bar, tearoff=0)
+# Ajouter une option pour exécuter le code
+run_bar.add_command(label='Exécuter', command=run)
+# Ajouter le menu Exécuter à la barre de menu
+menu_bar.add_cascade(label='Exécuter', menu=run_bar)
+
+# Configurer la barre de menu
+compiler.config(menu=menu_bar)
+
+# Créer un éditeur de texte
+editor = Text(height=35,width=220)
+editor.pack()
+
+# Créer une zone de sortie de code
+code_output = Text(height=100,width=220)
+code_output.pack()
+
+# Obtenir la taille de l'écran
+largeur_ecran = compiler.winfo_screenwidth()
+hauteur_ecran = compiler.winfo_screenheight()
+
+# Définir la taille maximale de la fenêtre principale
+compiler.wm_maxsize(largeur_ecran, hauteur_ecran)
+
+# Définir la taille de la fenêtre principale
+compiler.geometry(f"{int(largeur_ecran*0.8)}x{int(hauteur_ecran*0.8)}+{int(largeur_ecran*0.1)}+{int(hauteur_ecran*0.1)}")
+
+# Lancer la boucle principale de la fenêtre
+compiler.mainloop()

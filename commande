@@ -1,0 +1,64 @@
+flex -o sudo_lex.c sudo_lex.lex
+bison -d sudo_syntaxe.y
+gcc sudo_lex.c sudo_syntaxe.tab.c sudo_code_generator.c `pkg-config --cflags --libs glib-2.0` -o spl
+./spl programme.spl
+gcc -o h text.c
+./h
+
+declarartion des variable{ 
+
+boolean= Sb_;
+entier= Se_;
+chaine= s_c;
+affichage= s_a;
+}
+comparaison{
+
+    >:suprieur;
+    <:inferieur;
+    !=:different;
+    >=:superieur ou egale
+    <=:inferieur ou egale
+    in:inclus;exemple: entier1 in [34;56];
+    []:crochet;
+    ==:egale
+
+}
+commande{
+    if(boolean):code
+    else:cdde;
+    ;
+}
+commentaire{
+    mono_ligne= //;
+    multiligne = */  */;
+}
+racourcie{
+    (expression_arithmetique)?code:code;
+    not|!expression_arithmetique;
+    incrementation "++;"(v=v+1);
+    desincrementation "__;"(v=v_1)
+    +=(v=v+val);
+    -+(v=v-val);
+    *=(v=v*val);
+    %=(v=v%v);
+    &=(v=v&v);
+    /=(v=v/v);
+}
+
+boucle{
+    for= for{expression_arithmetique}:code;
+    while = while(expression_boulean):code;
+    do while = do:code ;tq{expression_boulean};
+    
+}
+chaine de chraractere{
+    Sc_nom = " ";
+}
+concatenation de chaine de charactere{
+    Sc_nom=" ";
+    Sc_nom+="petit cue";
+}
+surcherge de chaine de charactere{
+   code spl <S$ code c $S> code spl
+}

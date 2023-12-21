@@ -1,0 +1,58 @@
+    Sc_CONVERSATION = "Thomas :
+    ";
+     
+    Sc_THOMAS = "\"Bon je dois me forcer à écrire un truc.";
+     
+    Sc_THOMAS += " Ceci dans le simple but de tester si la concaténation fonctionne.";
+     
+    Sc_THOMAS += "\nAu fait, je vous l'ai dit que j'aime bien l'univers Disney ?\"";
+     
+   Sc_CONVERSATION += Sc_THOMAS;
+     
+    Sc_CONVERSATION += "\n\nMickey Mouse :
+    ";
+     
+   Sc_MICKEY = "\"Salut Thomas ! On ne t'a pas déjà dit que tout le monde s'en moque un peu ?\"";
+     
+   Sc_CONVERSATION += Sc_MICKEY;
+     
+    Sc_CONVERSATION += "\n\nThomas :
+    ";
+     
+    Sc_THOMAS = "\"Je rêve ou Mickey est vraiment en train de me parler là ??\"";
+     
+    Sc_CONVERSATION += Sc_THOMAS;
+     
+   Sc_CONVERSATION += "\n\nMickey Mouse :
+    ";
+     
+    Sc_MICKEY = "\"Oui et je suis même en train d'écouter du Coldplay avec Pluto ou Dingo. (Je sais plus lequel des 2 est mon ami ou mon chien)\"";
+     
+  Sc_CONVERSATION += Sc_MICKEY;
+     
+   Sc_CONVERSATION += "\n\nThomas :
+    ";
+     
+   Sc_THOMAS = "\"Pluto c'est ton chien ! Faudrait que j'arrête de faire du Bison moi...\"";
+     
+    Sc_CONVERSATION += Sc_THOMAS;
+     
+   Sc_CONVERSATION += "\n\nMickey Mouse :
+    ";
+     
+   Sc_MICKEY = "\"Ah oui toi aussi tu t'y es mis ! Dur de décrocher à ça, c'est vraiment trop fort ! Chez Disney, tout nos sites (go.com) ont été conçu avec une technologie Java qui a été développé par la Walt Disney Internet Group. Il s'agit de Tea Trove, une alternative à JSP qui répond efficacement à nos attentes. Cela va presque faire 16 ans qu'on le maintient. Puis on est aussi en partie à l'origine de Squeak, un dialecte de Smalltalk utilisé entre autre pour faire des applications interactives et ludiques destinées aux enfants.\"";
+     
+   Sc_CONVERSATION += Sc_MICKEY;
+     
+   Sc_CONVERSATION += "\n\nThomas :
+    ";
+     
+  Sc_THOMAS = "\"Ok donc comme ça Mickey fait du développement informatique... Bon il est temps que je m'arrête sur ce programme test, ça part pas mal en live là. J'ai suffisamment écrit pour tester si oui ou non la concaténation fonctionne.\"\n";
+     
+   Sc_CONVERSATION += Sc_THOMAS;
+     
+    s_a= Sc_CONVERSATION;
+     
+    s_free Sc_THOMAS;
+    s_free Sc_MICKEY;
+    s_free Sc_CONVERSATION;
